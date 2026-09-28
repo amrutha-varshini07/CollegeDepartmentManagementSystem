@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - College Department Management System</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 22px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        .auth-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .auth-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 440px;
+            padding: 35px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .auth-card h2 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 22px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .auth-card p.subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 22px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #bbb;
+            border-radius: 5px;
+            font-size: 15px;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 4px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.2s;
+            margin-top: 8px;
+        }
+
+        .btn-submit:hover {
+            background: #2980b9;
+        }
+
+        .auth-footer {
+            margin-top: 22px;
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .auth-footer a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .message {
+            padding: 12px 14px;
+            margin-bottom: 18px;
+            border-radius: 5px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>College Department Management System</h1>
+</header>
+
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>Account Login</h2>
+        <p class="subtitle">Please enter your credentials to access the management portal.</p>
+
+        <!-- FLASH MESSAGES -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="message {% if category == 'error' %}error-message{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('login') }}" method="POST" autocomplete="off">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="Enter your email" 
+                    required 
+                    autocomplete="off"
+                    value=""
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    placeholder="Enter your password" 
+                    required 
+                    autocomplete="current-password"
+                    value=""
+                >
+            </div>
+
+            <button type="submit" class="btn-submit">Log In</button>
+        </form>
+
+        <div class="auth-footer">
+            Don't have an account? <a href="{{ url_for('register') }}">Register here</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
